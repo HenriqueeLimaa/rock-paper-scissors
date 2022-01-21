@@ -8,11 +8,66 @@
 </head>
 <body>
     <script>
-        function computerChoice() {
-            const options = ["Rock", "Paper", "Scissors"];
-            let ComputerChoice = Math.floor(Math.random() * 3); 
-            return console.log(options[ComputerChoice]);
+
+        const options = ["rock", "paper", "scissors"];
+
+        let playerScore = 0;
+        let computerScore = 0;
+
+        function computerChoice() {    
+            let compRandom = Math.floor(Math.random() * 3); 
+            return options[compRandom];
         }
+
+        function playerChoice() {
+            let player_prompt = prompt("Rock, paper or scissors?").toLowerCase();
+            return player_prompt;
+        }
+
+        function round(playerSelection, computerSelection) {
+            if(playerSelection === "rock" && computerSelection === "paper"){
+                computerScore += 1;
+                return console.log(`Computer win!\n${computerSelection} beats ${playerSelection}`);
+            } else if(playerSelection === "rock" && computerSelection === "scissors"){
+                playerScore += 1;
+                return console.log(`You win!\n${playerSelection} beats ${computerSelection}`);
+            } else if(playerSelection === "paper" && computerSelection === "rock"){
+                playerScore += 1;
+                return console.log(`You win!\n${playerSelection} beats ${computerSelection}`);
+            } else if(playerSelection === "paper" && computerSelection === "scissors"){
+                computerScore += 1;
+                return console.log(`Computer win!\n${computerSelection} beats ${playerSelection}`);
+            } else if(playerSelection === "scissors" && computerSelection === "rock"){
+                computerScore += 1;
+                return console.log(`Computer win!\n${computerSelection} beats ${playerSelection}`);
+            } else if(playerSelection === "scissors" && computerSelection === "paper"){
+                playerScore += 1;
+                return console.log(`You win!\n${playerSelection} beats ${computerSelection}`);
+            }
+            else {
+                return console.log("I'ts a tie!");
+            }
+        }
+
+        function game(){
+            let winner;
+
+            for(let i=1; i<=5; i++){
+                round(playerChoice(), computerChoice());
+                console.log(`player score = ${playerScore}`);
+                console.log(`computer score = ${computerScore}`);
+            }
+            
+            if(playerScore > computerScore){
+                winner = `You are the winner with ${playerScore} points!\nComputer points=${computerScore}.`;
+            } else if(computerScore > playerScore){
+                winner = `The computer won with ${computerScore} points!\nYou got ${playerScore} points.`;
+            }
+            return console.log(winner);
+        }
+
+        game();
+
     </script>
 </body>
 </html>
