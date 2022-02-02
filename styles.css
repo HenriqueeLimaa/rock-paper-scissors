@@ -25,3 +25,7 @@ p{
     align-items: center;
     margin: 0;
 }
+
+#rock {
+    background-image: "images/pngegg.png";
+}
