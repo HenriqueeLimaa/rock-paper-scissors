@@ -36,26 +36,40 @@ function computerChoice() {
 function checkGameOver(){
     if(playerScore === 5){
         finalResult.textContent = "You win!";
+        return true;
     }else if(computerScore === 5){
         finalResult.textContent = "Computer win!";
+        return true;
     }
 }
 
 function increasePlayerScore(computerSelection, playerSelection){
-    return playerScore += 1,
-    showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`,
-    roundResult.textContent =`You win!\n${playerSelection} beats ${computerSelection}`;
+    if(checkGameOver() === true){
+        return;
+    }else{
+        return playerScore += 1,
+        showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`,
+        roundResult.textContent =`You win!\n${playerSelection} beats ${computerSelection}`;
+    }
 }
 
 function increaseComputerScore(computerSelection, playerSelection){
-    return computerScore += 1,
-    showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`,
-    roundResult.textContent =`Computer win!\n${computerSelection} beats ${playerSelection}`;
+    if(checkGameOver() === true){
+        return;
+    } else{
+        return computerScore += 1,
+        showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`,
+        roundResult.textContent =`Computer win!\n${computerSelection} beats ${playerSelection}`;
+    }   
 }
 
 function tie(){
-    return showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`,
-    roundResult.textContent = "I'ts a tie!"
+    if(checkGameOver() === true){
+        return;
+    }else{
+        return showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`,
+        roundResult.textContent = "I'ts a tie!"
+    }
 }
 ///////////////////////////////
 
