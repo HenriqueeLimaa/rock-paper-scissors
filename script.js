@@ -32,41 +32,53 @@ function computerChoice() {
     return options[compRandom];
 }
 
-function round(playerSelection, computerSelection){
+///////////////////////////////
+function checkGameOver(){
     if(playerScore === 5){
         finalResult.textContent = "You win!";
-    } else if(computerScore === 5){
+    }else if(computerScore === 5){
         finalResult.textContent = "Computer win!";
-    } else{
-        if(playerScore + computerScore < 9){
-            if(playerSelection === computerSelection){
-                showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`;
-                roundResult.textContent = "I'ts a tie!";
-            } else if(playerSelection === "rock" && computerSelection === "paper"){
-                computerScore += 1;
-                showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`;
-                roundResult.textContent =`Computer win!\n${computerSelection} beats ${playerSelection}`;
-            } else if(playerSelection === "rock" && computerSelection === "scissors"){
-                playerScore += 1;
-                showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`;
-                roundResult.textContent =`You win!\n${playerSelection} beats ${computerSelection}`;
-            } else if(playerSelection === "paper" && computerSelection === "rock"){
-                playerScore += 1;
-                showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`;
-                roundResult.textContent =`You win!\n${playerSelection} beats ${computerSelection}`;
-            } else if(playerSelection === "paper" && computerSelection === "scissors"){
-                computerScore += 1;
-                showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`;
-                roundResult.textContent =`Computer win!\n${computerSelection} beats ${playerSelection}`;
-            } else if(playerSelection === "scissors" && computerSelection === "rock"){
-                computerScore += 1;
-                showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`;
-                roundResult.textContent =`Computer win!\n${computerSelection} beats ${playerSelection}`;
-            } else if(playerSelection === "scissors" && computerSelection === "paper"){
-                playerScore += 1;
-                showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`;
-                roundResult.textContent =`You win!\n${playerSelection} beats ${computerSelection}`;
-            }
-        }
+    }
+}
+
+function increasePlayerScore(computerSelection, playerSelection){
+    return playerScore += 1,
+    showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`,
+    roundResult.textContent =`You win!\n${playerSelection} beats ${computerSelection}`;
+}
+
+function increaseComputerScore(computerSelection, playerSelection){
+    return computerScore += 1,
+    showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`,
+    roundResult.textContent =`Computer win!\n${computerSelection} beats ${playerSelection}`;
+}
+
+function tie(){
+    return showScore.textContent = `Player score ${playerScore} - ${computerScore} Computer score`,
+    roundResult.textContent = "I'ts a tie!"
+}
+///////////////////////////////
+
+function round(playerSelection, computerSelection){
+    if(playerSelection === computerSelection){
+        tie();
+    } else if(playerSelection === "rock" && computerSelection === "paper"){
+        increaseComputerScore(computerSelection, playerSelection);
+        checkGameOver();
+    } else if(playerSelection === "rock" && computerSelection === "scissors"){
+        increasePlayerScore(computerSelection, playerSelection);
+        checkGameOver();
+    } else if(playerSelection === "paper" && computerSelection === "rock"){
+        increasePlayerScore(computerSelection, playerSelection);
+        checkGameOver();
+    } else if(playerSelection === "paper" && computerSelection === "scissors"){
+        increaseComputerScore(computerSelection, playerSelection);
+        checkGameOver();
+    } else if(playerSelection === "scissors" && computerSelection === "rock"){
+        increaseComputerScore(computerSelection, playerSelection);
+        checkGameOver();
+    } else if(playerSelection === "scissors" && computerSelection === "paper"){
+        increasePlayerScore(computerSelection, playerSelection);
+        checkGameOver();
     }
 }
